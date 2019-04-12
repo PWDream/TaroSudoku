@@ -1,0 +1,26 @@
+@shadowTop: 0 -0.1rem 0.2rem rgb(48, 48, 48, 192);
+@import '../../sudoku/styles/base';
+
+.footer_wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem;
+  display: flex;
+  margin-top: 1rem;
+  //box-sizing: border-box;
+  //box-shadow: @shadowTop;
+  background: @base_color;
+  justify-content: space-between;
+  .picker {
+    margin-right: 0.5rem;
+    background: white;
+    padding: 0.2rem;
+    font-size: medium;
+    font-family: @font_faimiy;
+    border-radius: 10px;
+    min-width: 120px;
+    text-align: center;
+  }
+}

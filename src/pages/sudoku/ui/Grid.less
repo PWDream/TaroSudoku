@@ -1,0 +1,55 @@
+.matrix_container {
+  padding-left: 5%;
+  .row {
+    span {
+      display: inline-block;
+      cursor: pointer;
+      text-align: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      line-height: 1.5rem;
+      border: 1px solid #cccccc;
+      border-right-width: 0;
+      border-bottom-width: 0;
+      background-color: white;
+
+      &.col_g_right {
+        border-right-width: 1px;
+      }
+
+      &.fixed {
+        background-color: #eeeeee;
+      }
+
+      &.empty {
+        color: white;
+      }
+
+      &:first-child {
+        border-left-width: 2px;
+      }
+
+      &:last-child {
+        border-right-width: 2px;
+      }
+    }
+
+    &.row_g_bottom {
+      span {
+        border-bottom-width: 1px;
+      }
+    }
+
+    &:first-child {
+      span {
+        border-top-width: 2px;
+      }
+    }
+
+    &:last-child {
+      span {
+        border-bottom-width: 2px;
+      }
+    }
+  }
+}
