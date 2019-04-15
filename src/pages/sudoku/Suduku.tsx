@@ -23,7 +23,9 @@ export default class Suduku extends Component<any, State> {
     this.gridRef.handleGrade(grade)
   }
 
-  handleRank = () => {}
+  handleFinish = () => {
+    this.gridRef.handleFinish()
+  }
 
   handleKeyboardClick = (num: number) => {
     this.gridRef.handleKeyboardClick(num)
@@ -32,12 +34,12 @@ export default class Suduku extends Component<any, State> {
   render() {
     return (
       <View className="sudoku_wrapper">
-        <div className="title">
+        <View className="title">
           <h1>数独游戏</h1>
-        </div>
+        </View>
         <Grid ref={ref => (this.gridRef = ref)} />
         <Keyborad onKeyboard={this.handleKeyboardClick} />
-        <Footer onReset={this.handleReset} onGrade={this.handleGrade} onRank={this.handleRank} />
+        <Footer onReset={this.handleReset} onGrade={this.handleGrade} onFinish={this.handleFinish} />
       </View>
     )
   }

@@ -3,13 +3,15 @@
  */
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import Sudoku from '../core/Sudoku'
 import './Grid.less'
+import Sudoku from '../core/Sudoku'
+import Checker from '../core/Checker'
+import { MatrixInterface } from '../interface/SudokuInterface'
 
 interface Props {}
 
 interface State {
-  matrix: number[][]
+  matrix: MatrixInterface[][]
 }
 
 export default class Grid extends Component<Props, State> {
@@ -27,6 +29,18 @@ export default class Grid extends Component<Props, State> {
     return sudoku.martix
   }
 
+  handleFinish = () => {
+    const { matrix } = this.state
+    const checker = new Checker(matrix)
+    // const type = checker.success ? 'success' : 'error'
+    const message = checker.success ? '恭喜你全部填对' : '填写不正确'
+    // Taro.atMessage({
+    //   message,
+    //   type
+    // })
+    alert(message)
+  }
+
   handleReset = () => {
     this.setState({ matrix: this.fnSudoku() })
   }
@@ -39,14 +53,22 @@ export default class Grid extends Component<Props, State> {
     if (this.colIndex !== undefined && this.rowIndex !== undefined) {
       const { matrix } = this.state
       const value = matrix[this.rowIndex][this.colIndex]
-      if (value !== num) {
-        matrix[this.rowIndex][this.colIndex] = num
+      if (value.num !== num) {
+        matrix[this.rowIndex][this.colIndex].num = num
         this.setState({ matrix })
       }
     }
   }
 
   handleCellClick = (rowIndex: number, colIndex: number) => {
+    const { matrix } = this.state
+    if (this.rowIndex !== undefined && this.colIndex !== undefined) {
+      const value = matrix[this.rowIndex][this.colIndex]
+      value.focus = false
+    }
+    const value = matrix[rowIndex][colIndex]
+    value.focus = true
+    this.setState({ matrix })
     this.rowIndex = rowIndex
     this.colIndex = colIndex
   }
@@ -56,12 +78,13 @@ export default class Grid extends Component<Props, State> {
     const rowGroupClasses = ['row_g_top', 'row_g_middle', 'row_g_bottom']
     const colGroupClasses = ['col_g_left', 'col_g_middle', 'col_g_right']
 
-    const cells = matrix.map((rowValues: number[], rowIndex: number) =>
-      rowValues.map((cellValue: number, colIndex: number) => {
-        const cls = colGroupClasses[colIndex % 3] + ' ' + (cellValue ? 'fixed' : 'empty')
+    const cells = matrix.map((rowValues: MatrixInterface[], rowIndex: number) =>
+      rowValues.map((cellValue: MatrixInterface, colIndex: number) => {
+        const cls =
+          colGroupClasses[colIndex % 3] + ' ' + (cellValue.num ? 'fixed' : 'empty') + (cellValue.focus ? ' focus' : '')
         return (
           <span className={cls} onClick={() => this.handleCellClick(rowIndex, colIndex)}>
-            {cellValue}
+            {cellValue.num}
           </span>
         )
       })

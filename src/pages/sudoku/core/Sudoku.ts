@@ -1,8 +1,9 @@
 import Generator from './Generator'
+import { MatrixInterface } from '../interface/SudokuInterface'
 
 export default class Sudoku {
-  private solution: number[][]
-  private publishMartix: number[][]
+  private solution: MatrixInterface[][]
+  private publishMartix: MatrixInterface[][]
   constructor() {
     const generator = new Generator()
     generator.generator()
@@ -14,9 +15,11 @@ export default class Sudoku {
   }
 
   mark(level = 5) {
-    this.publishMartix = this.solution.map((row: number[]) => {
-      return row.map((cellValue: number) => {
-        return Math.random() * 9 < level ? 0 : cellValue
+    this.publishMartix = this.solution.map((row: MatrixInterface[]) => {
+      return row.map((cellValue: MatrixInterface) => {
+        return {
+          num: Math.random() * 9 < level ? 0 : cellValue.num
+        }
       })
     })
   }

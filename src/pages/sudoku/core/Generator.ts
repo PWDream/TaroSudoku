@@ -1,8 +1,9 @@
 import ToolKit from './ToolKit'
+import { MatrixInterface } from '../interface/SudokuInterface'
 
 export default class Generator {
-  public martix: number[][]
-  public orders: number[][]
+  public martix: MatrixInterface[][]
+  private orders: number[][]
 
   generator() {
     while (!this.internalGenerator()) {
@@ -11,7 +12,11 @@ export default class Generator {
   }
 
   internalGenerator() {
-    this.martix = ToolKit.martix.makeMatrix()
+    this.martix = ToolKit.martix.makeMatrix().map((row: number[]) =>
+      row.map((v: number) => {
+        return { num: v }
+      })
+    )
     this.orders = ToolKit.martix
       .makeMatrix()
       .map(row => row.map((_, i) => i))
@@ -38,7 +43,7 @@ export default class Generator {
     const orders = this.orders[rowIndex]
     for (let i = 0; i <= 8; i++) {
       const colIndex = orders[i]
-      if (row[colIndex]) {
+      if (row[colIndex].num) {
         continue
       }
 
@@ -46,9 +51,9 @@ export default class Generator {
         continue
       }
 
-      row[colIndex] = n
+      row[colIndex].num = n
       if (!this.fillRow(n, rowIndex + 1)) {
-        row[colIndex] = 0
+        row[colIndex].num = 0
         continue
       }
       return true

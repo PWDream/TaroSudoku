@@ -3,14 +3,14 @@
  */
 
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Picker } from '@tarojs/components'
+import { View, Picker } from '@tarojs/components'
 import './Footer.less'
 const ranges = [1, 2, 3, 4, 5, 6, 7, 8]
 
 interface Props {
   onReset: Function
   onGrade: Function
-  onRank: Function
+  onFinish: Function
 }
 
 interface State {
@@ -30,8 +30,26 @@ export default class Footer extends Component<Props, State> {
     onGrade(level)
   }
 
+  handleSuccess = (res: any) => {
+    const { confirm } = res
+    if (confirm) {
+      const { onFinish } = this.props
+      onFinish()
+    }
+  }
+
+  handelFinsih = () => {
+    return Taro.showModal({
+      title: '提交',
+      cancelText: '取消',
+      confirmText: '确认',
+      success: this.handleSuccess,
+      content: '确认提交'
+    })
+  }
+
   render() {
-    const { onReset, onRank } = this.props
+    const { onReset } = this.props
     const { level } = this.state
     return (
       <View className="footer_wrapper">
@@ -41,8 +59,8 @@ export default class Footer extends Component<Props, State> {
         <View className="picker" onClick={() => onReset()}>
           重置
         </View>
-        <View className="picker" onClick={() => onRank()}>
-          排名
+        <View className="picker" onClick={this.handelFinsih}>
+          完成
         </View>
       </View>
     )
