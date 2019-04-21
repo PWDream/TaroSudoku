@@ -15,9 +15,9 @@ export default class Keyboard extends Component<Props> {
       <View className="keyboard">
         {keyboard.map((value: number) => {
           return (
-            <div className="numKey" onClick={() => onKeyboard(value)}>
+            <View key={value} className="numKey" onClick={() => onKeyboard(value)}>
               {value}
-            </div>
+            </View>
           )
         })}
       </View>

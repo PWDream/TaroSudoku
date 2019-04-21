@@ -78,25 +78,24 @@ export default class Grid extends Component<Props, State> {
     const rowGroupClasses = ['row_g_top', 'row_g_middle', 'row_g_bottom']
     const colGroupClasses = ['col_g_left', 'col_g_middle', 'col_g_right']
 
-    const cells = matrix.map((rowValues: MatrixInterface[], rowIndex: number) =>
-      rowValues.map((cellValue: MatrixInterface, colIndex: number) => {
-        const cls =
-          colGroupClasses[colIndex % 3] + ' ' + (cellValue.num ? 'fixed' : 'empty') + (cellValue.focus ? ' focus' : '')
-        return (
-          <span className={cls} onClick={() => this.handleCellClick(rowIndex, colIndex)}>
-            {cellValue.num}
-          </span>
-        )
-      })
-    )
-
     return (
       <View className="matrix_container">
-        {cells.map((spanArray: any, index: number) => {
-          const cls = `row ${rowGroupClasses[index % 3]}`
+        {matrix.map((rowValues: MatrixInterface[], rowIndex: number) => {
+          const cls = `row ${rowGroupClasses[rowIndex % 3]}`
           return (
-            <View key={index} className={cls}>
-              {spanArray}
+            <View key={rowIndex} className={cls}>
+              {rowValues.map((cellValue: MatrixInterface, colIndex: number) => {
+                const colCls =
+                  colGroupClasses[colIndex % 3] +
+                  ' ' +
+                  (cellValue.num ? 'fixed' : 'empty') +
+                  (cellValue.focus ? ' focus' : '')
+                return (
+                  <span key={colIndex} className={colCls} onClick={() => this.handleCellClick(rowIndex, colIndex)}>
+                    {cellValue.num}
+                  </span>
+                )
+              })}
             </View>
           )
         })}
