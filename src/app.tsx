@@ -28,9 +28,10 @@ class App extends Component {
     pages: ['pages/sudoku/index'],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarBackgroundColor: '#f44242',
+      navigationBarTitleText: '数独小游戏',
+      navigationBarTextStyle: 'white',
+      onReachBottomDistance: 0
     }
   }
 

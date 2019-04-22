@@ -3,6 +3,7 @@
  */
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
+import { AtMessage } from 'taro-ui'
 import './Grid.less'
 import Sudoku from '../core/Sudoku'
 import Checker from '../core/Checker'
@@ -32,13 +33,9 @@ export default class Grid extends Component<Props, State> {
   handleFinish = () => {
     const { matrix } = this.state
     const checker = new Checker(matrix)
-    // const type = checker.success ? 'success' : 'error'
+    const type = checker.success ? 'success' : 'none'
     const message = checker.success ? '恭喜你全部填对' : '填写不正确'
-    // Taro.atMessage({
-    //   message,
-    //   type
-    // })
-    alert(message)
+    return Taro.showToast({ title: message, icon: type })
   }
 
   handleReset = () => {
@@ -80,6 +77,7 @@ export default class Grid extends Component<Props, State> {
 
     return (
       <View className="matrix_container">
+        <AtMessage />
         {matrix.map((rowValues: MatrixInterface[], rowIndex: number) => {
           const cls = `row ${rowGroupClasses[rowIndex % 3]}`
           return (
@@ -91,9 +89,13 @@ export default class Grid extends Component<Props, State> {
                   (cellValue.num ? 'fixed' : 'empty') +
                   (cellValue.focus ? ' focus' : '')
                 return (
-                  <span key={colIndex} className={colCls} onClick={() => this.handleCellClick(rowIndex, colIndex)}>
+                  <View
+                    key={colIndex}
+                    className={`span ${colCls}`}
+                    onClick={this.handleCellClick.bind(this, rowIndex, colIndex)}
+                  >
                     {cellValue.num}
-                  </span>
+                  </View>
                 )
               })}
             </View>

@@ -9,13 +9,18 @@ interface Props {
 }
 
 export default class Keyboard extends Component<Props> {
-  render() {
+  handleOnClick = (key: number) => {
     const { onKeyboard } = this.props
+    onKeyboard(key)
+  }
+
+  render() {
+    // const { onKeyboard } = this.props
     return (
       <View className="keyboard">
         {keyboard.map((value: number) => {
           return (
-            <View key={value} className="numKey" onClick={() => onKeyboard(value)}>
+            <View key={value} className="numKey" onClick={this.handleOnClick.bind(this, value)}>
               {value}
             </View>
           )

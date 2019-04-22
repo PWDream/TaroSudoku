@@ -3,7 +3,8 @@
  */
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import './Sudoku.less'
+import './index.less'
+import Header from './ui/Header'
 import Footer from './ui/Footer'
 import Grid from './ui/Grid'
 import Keyborad from './ui/Keyboard'
@@ -33,10 +34,8 @@ export default class Suduku extends Component<any, State> {
 
   render() {
     return (
-      <View className="sudoku_wrapper">
-        <View className="title">
-          <h1>数独游戏</h1>
-        </View>
+      <View className="sudoku">
+        <Header />
         <Grid ref={ref => (this.gridRef = ref)} />
         <Keyborad onKeyboard={this.handleKeyboardClick} />
         <Footer onReset={this.handleReset} onGrade={this.handleGrade} onFinish={this.handleFinish} />

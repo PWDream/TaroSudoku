@@ -1,4 +1,4 @@
 export interface MatrixInterface {
-  num: number
+  num: number | string
   focus?: boolean
 }
