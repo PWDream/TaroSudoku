@@ -39,7 +39,7 @@ const boxToolKit = {
   getBoxCell(martix: MatrixInterface[][], boxIndex) {
     const startRowIndex = Math.floor(boxIndex / 3) * 3
     const startColIndex = (boxIndex % 3) * 3
-    let restult: number[] = []
+    let restult: any[] = []
     for (let index = 0; index < 9; index++) {
       const rowIndex = startRowIndex + Math.floor(index / 3)
       const colIndex = startColIndex + (index % 3)

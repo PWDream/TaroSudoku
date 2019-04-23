@@ -13,7 +13,7 @@ export default class Header extends Component {
         <h1>数独游戏</h1>
       </View>
     ) : (
-      <View className="header" />
+      <View />
     )
   }
 }
