@@ -26,7 +26,7 @@ export default class Footer extends Component<Props, State> {
 
   handleGrade = (e: any) => {
     const { onGrade } = this.props
-    const level = e.detail.value + 1
+    const level = Number(e.detail.value) + 1
     this.setState({ level })
     onGrade(level)
   }
