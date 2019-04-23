@@ -29,9 +29,15 @@ class App extends Component {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#f44242',
-      navigationBarTitleText: '数独小游戏',
+      navigationBarTitleText: '数独迷宫',
       navigationBarTextStyle: 'white',
       onReachBottomDistance: 0
+    }
+  }
+
+  onShareAppMessage = () => {
+    return {
+      title: '数独迷宫'
     }
   }
 

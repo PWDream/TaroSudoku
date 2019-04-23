@@ -16,6 +16,13 @@ interface State {
 export default class Suduku extends Component<any, State> {
   private gridRef: any
 
+  onShareAppMessage() {
+    return {
+      title: '数独迷宫',
+      path: 'pages/sudoku/index'
+    }
+  }
+
   handleReset = () => {
     this.gridRef.handleReset()
   }
@@ -32,13 +39,22 @@ export default class Suduku extends Component<any, State> {
     this.gridRef.handleKeyboardClick(num)
   }
 
+  handleRefill = () => {
+    this.gridRef.handleRefill()
+  }
+
   render() {
     return (
       <View className="sudoku">
         <Header />
         <Grid ref={ref => (this.gridRef = ref)} />
         <Keyborad onKeyboard={this.handleKeyboardClick} />
-        <Footer onReset={this.handleReset} onGrade={this.handleGrade} onFinish={this.handleFinish} />
+        <Footer
+          onReset={this.handleReset}
+          onGrade={this.handleGrade}
+          onFinish={this.handleFinish}
+          onReFill={this.handleRefill}
+        />
       </View>
     )
   }

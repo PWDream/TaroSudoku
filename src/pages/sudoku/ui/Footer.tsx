@@ -11,6 +11,7 @@ interface Props {
   onReset: Function
   onGrade: Function
   onFinish: Function
+  onReFill: Function
 }
 
 interface State {
@@ -49,7 +50,7 @@ export default class Footer extends Component<Props, State> {
   }
 
   render() {
-    const { onReset } = this.props
+    const { onReset, onReFill } = this.props
     const { level } = this.state
     return (
       <View className="footer_wrapper">
@@ -58,6 +59,9 @@ export default class Footer extends Component<Props, State> {
         </Picker>
         <View className="picker" onClick={() => onReset()}>
           重置
+        </View>
+        <View className="picker" onClick={() => onReFill()}>
+          重填
         </View>
         <View className="picker" onClick={this.handelFinsih}>
           完成

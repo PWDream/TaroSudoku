@@ -17,8 +17,10 @@ export default class Sudoku {
   mark(level = 5) {
     this.publishMartix = this.solution.map((row: MatrixInterface[]) => {
       return row.map((cellValue: MatrixInterface) => {
+        const num = Math.random() * 9 < level ? '' : cellValue.num
         return {
-          num: Math.random() * 9 < level ? '' : cellValue.num
+          num,
+          fixed: !!num
         }
       })
     })
